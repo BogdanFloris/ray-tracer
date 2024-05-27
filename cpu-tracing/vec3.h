@@ -8,6 +8,7 @@ typedef struct vec3 {
 } vec3, point3;
 
 char* vec3_to_string(char* buffer, vec3* a);
+void vec3_print(vec3* a);
 bool vec3_equal(vec3* a, vec3* b);
 double vec3_length(vec3* a);
 double vec3_length_squared(vec3* a);

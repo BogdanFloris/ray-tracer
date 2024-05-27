@@ -2,12 +2,17 @@
 
 #include <assert.h>
 #include <math.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 char* vec3_to_string(char* buffer, vec3* a) {
     sprintf(buffer, "[%f, %f, %f]", a->e[0], a->e[1], a->e[2]);
     return buffer;
+}
+
+void vec3_print(vec3* a) {
+    char buffer[100];
+    printf("%s\n", vec3_to_string(buffer, a));
 }
 
 bool vec3_equal(vec3* a, vec3* b) {
@@ -19,9 +24,7 @@ bool vec3_equal(vec3* a, vec3* b) {
     return true;
 }
 
-double vec3_length(vec3* a) {
-    return sqrt(vec3_length_squared(a));
-}
+double vec3_length(vec3* a) { return sqrt(vec3_length_squared(a)); }
 
 double vec3_length_squared(vec3* a) {
     return a->e[0] * a->e[0] + a->e[1] * a->e[1] + a->e[2] * a->e[2];
@@ -120,7 +123,8 @@ void test_vec3() {
     assert(vec3_equal(&result, &(vec3){.e = {-3, 6, -3}}));
 
     vec3_unit(&result, &a);
-    assert(vec3_equal(&result, &(vec3){.e = {1 / sqrt(14), 2 / sqrt(14), 3 / sqrt(14)}}));
+    assert(vec3_equal(
+        &result, &(vec3){.e = {1 / sqrt(14), 2 / sqrt(14), 3 / sqrt(14)}}));
 
     printf("vec3 tests passed!\n");
 }
