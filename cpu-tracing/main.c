@@ -8,7 +8,25 @@
 
 static const char TARGET_FILE[] = "target/image.ppm";
 
+bool hit_sphere(const point3* center, double radius, const ray* r) {
+    vec3 oc;
+    vec3_sub(&oc, center, &r->orig);
+    double a = vec3_dot(&r->dir, &r->dir);
+    double b = -2.0 * vec3_dot(&r->dir, &oc);
+    double c = vec3_dot(&oc, &oc) - radius * radius;
+    double disc = b * b - 4 * a * c;
+    return (disc >= 0);
+}
+
 color* ray_color(color* c, ray* r) {
+    point3 center = {.e = {0, 0, -1}};
+    double radius = 0.5;
+    if(hit_sphere(&center, radius, r)) {
+        c->e[0] = 1;
+        c->e[1] = 0;
+        c->e[2] = 0;
+        return c;
+    }
     // blue to white gradient
     vec3 unit_direction;
     vec3_unit(&unit_direction, &r->dir);
