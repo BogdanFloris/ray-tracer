@@ -5,17 +5,17 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-char* vec3_to_string(char* buffer, vec3* a) {
+char* vec3_to_string(char* buffer, const vec3* a) {
     sprintf(buffer, "[%f, %f, %f]", a->e[0], a->e[1], a->e[2]);
     return buffer;
 }
 
-void vec3_print(vec3* a) {
+void vec3_print(const vec3* a) {
     char buffer[100];
     printf("%s\n", vec3_to_string(buffer, a));
 }
 
-bool vec3_equal(vec3* a, vec3* b) {
+bool vec3_equal(const vec3* a, const vec3* b) {
     for (int i = 0; i < 3; i++) {
         if (a->e[i] != b->e[i]) {
             return false;
@@ -24,55 +24,55 @@ bool vec3_equal(vec3* a, vec3* b) {
     return true;
 }
 
-double vec3_length(vec3* a) { return sqrt(vec3_length_squared(a)); }
+double vec3_length(const vec3* a) { return sqrt(vec3_length_squared(a)); }
 
-double vec3_length_squared(vec3* a) {
+double vec3_length_squared(const vec3* a) {
     return a->e[0] * a->e[0] + a->e[1] * a->e[1] + a->e[2] * a->e[2];
 }
 
-vec3* vec3_add(vec3* result, vec3* a, vec3* b) {
+vec3* vec3_add(vec3* result, const vec3* a, const vec3* b) {
     for (int i = 0; i < 3; i++) {
         result->e[i] = a->e[i] + b->e[i];
     }
     return result;
 }
 
-vec3* vec3_sub(vec3* result, vec3* a, vec3* b) {
+vec3* vec3_sub(vec3* result, const vec3* a, const vec3* b) {
     for (int i = 0; i < 3; i++) {
         result->e[i] = a->e[i] - b->e[i];
     }
     return result;
 }
 
-vec3* vec3_mul(vec3* result, vec3* a, vec3* b) {
+vec3* vec3_mul(vec3* result, const vec3* a, const vec3* b) {
     for (int i = 0; i < 3; i++) {
         result->e[i] = a->e[i] * b->e[i];
     }
     return result;
 }
 
-vec3* vec3_div(vec3* result, vec3* a, vec3* b) {
+vec3* vec3_div(vec3* result, const vec3* a, const vec3* b) {
     for (int i = 0; i < 3; i++) {
         result->e[i] = a->e[i] / b->e[i];
     }
     return result;
 }
 
-vec3* vec3_mul_scalar(vec3* result, vec3* a, double t) {
+vec3* vec3_mul_scalar(vec3* result, const vec3* a, double t) {
     for (int i = 0; i < 3; i++) {
         result->e[i] = a->e[i] * t;
     }
     return result;
 }
 
-vec3* vec3_div_scalar(vec3* result, vec3* a, double t) {
+vec3* vec3_div_scalar(vec3* result, const vec3* a, double t) {
     for (int i = 0; i < 3; i++) {
         result->e[i] = a->e[i] / t;
     }
     return result;
 }
 
-double vec3_dot(vec3* a, vec3* b) {
+double vec3_dot(const vec3* a, const vec3* b) {
     double result = 0;
     for (int i = 0; i < 3; i++) {
         result += a->e[i] * b->e[i];
@@ -80,14 +80,14 @@ double vec3_dot(vec3* a, vec3* b) {
     return result;
 }
 
-vec3* vec3_cross(vec3* result, vec3* a, vec3* b) {
+vec3* vec3_cross(vec3* result, const vec3* a, const vec3* b) {
     result->e[0] = a->e[1] * b->e[2] - a->e[2] * b->e[1];
     result->e[1] = a->e[2] * b->e[0] - a->e[0] * b->e[2];
     result->e[2] = a->e[0] * b->e[1] - a->e[1] * b->e[0];
     return result;
 }
 
-vec3* vec3_unit(vec3* result, vec3* a) {
+vec3* vec3_unit(vec3* result, const vec3* a) {
     double length = vec3_length(a);
     return vec3_div_scalar(result, a, length);
 }
